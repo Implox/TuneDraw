@@ -15,9 +15,11 @@ type Point (time : float, pitch : float) =
         with get () = p
         and set value = t <- value
 
+    member this.Location = (t, p)
+
 type Segment =
 | Line of Point
 
-type Chain  = (Point * Segment list)
+type Chain = (Point * Segment list)
 
 type Scene = Chain list
