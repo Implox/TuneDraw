@@ -24,6 +24,8 @@ type MainForm () as this=
     let height () = this.ClientSize.Height
     let mutable mousePos = Point (0, 0)
 
+    let mutable leftDown = false
+
     /// The number of grid lines to be displayed.
     let divisions = 50
 
@@ -68,12 +70,6 @@ type MainForm () as this=
         g.DrawLine (majorPen, float32 width / 2.0f, 0.0f, float32 width / 2.0f, float32 height)
         g.DrawLine (majorPen, 0.0f, float32 height / 2.0f, float32 width, float32 height / 2.0f)
 
-        for (x, y) in line do g.FillEllipse (Brushes.Blue, float32 x - 4.0f, float32 y - 4.0f, 8.0f, 8.0f)
-
-        let x, y = [for [a; b] in intersections do yield (a, b)] |> List.minBy dist
-        if dist (x, y) <= 10.0f then g.FillEllipse (Brushes.Red, float32 x - 4.0f, float32 y - 4.0f, 8.0f, 8.0f)
-        printf "Mouse @: (%A, %A)\n" x y //Just for debugging. Remove later.
-
     /// Updates this form.
     member this.Update () =
         this.Refresh ()
@@ -81,13 +77,10 @@ type MainForm () as this=
     override this.OnPaint args =
         paint args.Graphics
 
-    override this.OnMouseDown args =
-        if args.Button = MouseButtons.Left then
-            let x, y = [for [a; b] in intersections do yield (a, b)] |> List.minBy dist
-            if dist (x, y) <= 10.0f then
-                if line.Contains (x, y) = false then line.Add (x, y)
-                else line.Remove(x, y) |> ignore
+    override this.OnMouseDown args = ()
 
     override this.OnMouseMove args =
         mousePos <- args.Location
+        if args.Button = MouseButtons.Left then leftDown <- true
+        else leftDown <- false
         this.Refresh ()
