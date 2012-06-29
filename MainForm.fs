@@ -7,13 +7,14 @@ open System.Windows.Forms
 
 open TuneDraw.Scene
 open TuneDraw.Tool
+open TuneDraw.Sound
 
 type MainForm () as this=
     inherit Form ()
     do
         this.Text <- "TuneDraw!"
         this.Width <- 1000
-        this.Height <- 500
+        this.Height <- 511
         this.Cursor <- Cursors.Cross
         this.SetStyle (ControlStyles.AllPaintingInWmPaint, true)
         this.SetStyle (ControlStyles.UserPaint, true)
@@ -30,6 +31,9 @@ type MainForm () as this=
     let testChain : Chain = (Scene.Point (0.0, 0.0), [Line (Scene.Point (1.0, -0.3)); Line(Scene.Point (1.5, 0.4))])
     let testChainTwo : Chain = (Scene.Point (0.5, 0.6), [Line (Scene.Point (1.5, -0.2))])
     let testScene : Scene = [testChain; testChainTwo]
+    let soundPlayer = Sound.SoundPlayer ((fun streamInfo -> SineGenerator (streamInfo, 440.0) :> Generator), 44100)
+
+    do soundPlayer.Play ()
 
     let windowToScene (p : PointF) = 
         let height = height ()
@@ -45,13 +49,13 @@ type MainForm () as this=
 
     /// Paints this form.
     let paint (g : Graphics) =
-        g.Clear Color.White
+        g.Clear Color.Black
         g.CompositingQuality <- System.Drawing.Drawing2D.CompositingQuality.HighQuality // Fancy drawing because we can!
         g.SmoothingMode <- System.Drawing.Drawing2D.SmoothingMode.HighQuality
         g.TextRenderingHint <- System.Drawing.Text.TextRenderingHint.AntiAlias
 
-        use majorPen = new Pen (Color.Gray, 2.0f)
-        use minorPen = new Pen (Color.LightGray, 2.0f)
+        use majorPen = new Pen (Color.Red, 2.0f)
+        use minorPen = new Pen (Color.White, 0.1f)
         use linePen = new Pen (Color.Blue, 5.0f)
 
         let width = float (width ())
@@ -79,6 +83,7 @@ type MainForm () as this=
 
     /// Updates this form.
     member this.Update () =
+        soundPlayer.Update ()
         this.Refresh ()
     
     override this.OnPaint args =

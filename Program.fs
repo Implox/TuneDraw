@@ -13,6 +13,5 @@ let main argv =
     form.Activate ()
     while form.Visible do
         form.Update ()
-        Thread.Sleep 5
         Application.DoEvents ()
     0

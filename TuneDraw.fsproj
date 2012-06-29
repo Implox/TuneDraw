@@ -48,6 +48,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sound.fs" />
     <Compile Include="Scene.fs" />
     <Compile Include="Tool.fs" />
     <Compile Include="MainForm.fs" />
