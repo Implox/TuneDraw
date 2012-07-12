@@ -18,7 +18,7 @@ type Point (time : float, pitch : float) =
     member this.Location = (t, p)
 
 type Segment =
-| Line of Point
+    | Line of Point
 
 type Chain = (Point * Segment list)
 

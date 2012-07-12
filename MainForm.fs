@@ -49,13 +49,13 @@ type MainForm () as this=
 
     /// Paints this form.
     let paint (g : Graphics) =
-        g.Clear Color.Black
+        g.Clear Color.White
         g.CompositingQuality <- System.Drawing.Drawing2D.CompositingQuality.HighQuality // Fancy drawing because we can!
         g.SmoothingMode <- System.Drawing.Drawing2D.SmoothingMode.HighQuality
         g.TextRenderingHint <- System.Drawing.Text.TextRenderingHint.AntiAlias
 
         use majorPen = new Pen (Color.Red, 2.0f)
-        use minorPen = new Pen (Color.White, 0.1f)
+        use minorPen = new Pen (Color.LightGray, 0.1f)
         use linePen = new Pen (Color.Blue, 5.0f)
 
         let width = float (width ())

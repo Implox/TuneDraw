@@ -6,7 +6,11 @@ open OpenTK
 open OpenTK.Audio
 open OpenTK.Audio.OpenAL
 
-type SampleBuffer = float[]
+open TuneDraw.Scene
+
+type Sample = float
+
+type SampleBuffer = Sample[]
 
 type StreamInfo (sampleRate : float, channels : int) =
     /// The number of samples per second.
@@ -33,7 +37,6 @@ type SineGenerator (streamInfo : StreamInfo, frequency : float) =
                 buffer.[offset + j] <- value
             offset <- offset + this.StreamInfo.Channels
             phase <- phase + (frequency / this.StreamInfo.Rate)
-
 
 type SoundPlayer (generator : StreamInfo -> Generator, sampleRate : int) =
     static let context = new AudioContext ()
@@ -74,7 +77,7 @@ type SoundPlayer (generator : StreamInfo -> Generator, sampleRate : int) =
         AL.SourcePause sID
         playing <- false
 
-    /// Gets or sets wether the sound is playing.
+    /// Gets or sets whether the sound is playing.
     member this.Playing
         with get () = playing
         and set value =
