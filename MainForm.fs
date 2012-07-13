@@ -8,6 +8,7 @@ open System.Windows.Forms
 open TuneDraw.Scene
 open TuneDraw.Tool
 open TuneDraw.Sound
+open TuneDraw.SceneSound
 
 type MainForm () as this=
     inherit Form ()
@@ -28,23 +29,23 @@ type MainForm () as this=
     let mutable leftDown = false
     let divisions = 50
 
-    let testChain : Chain = (Scene.Point (0.0, 0.0), [Line (Scene.Point (1.0, -0.3)); Line(Scene.Point (1.5, 0.4))])
-    let testChainTwo : Chain = (Scene.Point (0.5, 0.6), [Line (Scene.Point (1.5, -0.2))])
+    let testChain : Chain = (Scene.Point (0.0, 0.0), [Line (Scene.Point (3.0, -0.3)); Line(Scene.Point (15.0, 0.4))])
+    let testChainTwo : Chain = (Scene.Point (4.0, 0.6), [Line (Scene.Point (20.0, -0.2))])
     let testScene : Scene = [testChain; testChainTwo]
-    let soundPlayer = Sound.SoundPlayer ((fun streamInfo -> SineGenerator (streamInfo, 440.0) :> Generator), 44100)
+    let soundPlayer = Sound.SoundPlayer ((fun streamInfo -> SceneGenerator (streamInfo, 0.0, testScene) :> SoundGenerator), 44100)
 
     do soundPlayer.Play ()
 
     let windowToScene (p : PointF) = 
         let height = height ()
         let time = p.X / 200.0f
-        let pitch = (p.Y / float32 height) - 0.5f
+        let pitch = 0.5f - (p.Y / float32 height) 
         (float time, float pitch)
 
     let sceneToWindow (time : Time, pitch : Pitch) =
         let height = height ()
         let x = 200.0 * time
-        let y = (pitch + 0.5) * float height
+        let y = (0.5 - pitch) * float height
         PointF (float32 x, float32 y)
 
     /// Paints this form.

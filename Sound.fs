@@ -20,14 +20,14 @@ type StreamInfo (sampleRate : float, channels : int) =
     member this.Channels = channels
 
 [<AbstractClass>]
-type Generator (streamInfo : StreamInfo) =
+type SoundGenerator  (streamInfo : StreamInfo) =
     /// Generates the given number of samples and writes them to the given sample buffer at the given offset.
     abstract Write : int -> int -> SampleBuffer -> unit
 
     member this.StreamInfo = streamInfo
 
-type SineGenerator (streamInfo : StreamInfo, frequency : float) =
-    inherit Generator (streamInfo)
+type SineGenerator  (streamInfo : StreamInfo, frequency : float) =
+    inherit SoundGenerator  (streamInfo)
     let mutable phase = 0.0
     override this.Write size offset buffer =
         let mutable offset = offset
@@ -38,7 +38,7 @@ type SineGenerator (streamInfo : StreamInfo, frequency : float) =
             offset <- offset + this.StreamInfo.Channels
             phase <- phase + (frequency / this.StreamInfo.Rate)
 
-type SoundPlayer (generator : StreamInfo -> Generator, sampleRate : int) =
+type SoundPlayer (generator : StreamInfo -> SoundGenerator , sampleRate : int) =
     static let context = new AudioContext ()
     let mutable playing = false
     let sID = AL.GenSource ()

@@ -4,6 +4,8 @@ type Time = float
 
 type Pitch = float
 
+let getFrequency (pitch : Pitch) = 1000.0 * exp pitch
+
 type Point (time : float, pitch : float) =
     let mutable t = time
     let mutable p = pitch

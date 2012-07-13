@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Scene.fs" />
     <Compile Include="Sound.fs" />
+    <Compile Include="SceneSound.fs" />
     <Compile Include="Tool.fs" />
     <Compile Include="MainForm.fs" />
     <Compile Include="Program.fs" />
