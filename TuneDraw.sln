@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TuneDraw", "TuneDraw\TuneDraw.fsproj", "{D7ECC98C-8E86-46E6-B59C-846289B57ED5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TuneDraw", "TuneDraw.fsproj", "{D7ECC98C-8E86-46E6-B59C-846289B57ED5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
