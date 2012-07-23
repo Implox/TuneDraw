@@ -29,8 +29,8 @@ type MainForm () as this=
     let mutable leftDown = false
     let divisions = 50
 
-    let testChain : Chain = (Scene.Point (0.0, 0.0), [Line (Scene.Point (3.0, -0.3)); Line(Scene.Point (15.0, 0.4))])
-    let testChainTwo : Chain = (Scene.Point (4.0, 0.6), [Line (Scene.Point (20.0, -0.2))])
+    let testChain : Chain = (Scene.Point (0.0, 0.0), [Line (Scene.Point (1.0, -0.3)); Line(Scene.Point (2.0, -0.3)); Line (Scene.Point (4.0, 0.0))])
+    let testChainTwo : Chain = (Scene.Point (0.0, 0.1), [Line (Scene.Point (1.0, -0.2)); Line (Scene.Point (2.0, 0.3)); Line (Scene.Point (4.0, 0.0))])
     let testScene : Scene = [testChain; testChainTwo]
     let soundPlayer = Sound.SoundPlayer ((fun streamInfo -> SceneGenerator (streamInfo, 0.0, testScene) :> SoundGenerator), 44100)
 

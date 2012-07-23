@@ -24,7 +24,7 @@ let getSineWave phase = sin (phase * 2.0 * Math.PI)
 let getSquareWave phase = if phase < 0.5 then -1.0 else 1.0
 let getSawWave phase = phase * 2.0 - 1.0
 let getTriWave phase = if phase < 0.5 then 4.0 * phase - 1.0 else 3.0 - 4.0 * phase
-let testToneGenerator sampleRate = OscillatorToneGenerator (sampleRate, getTriWave) :> ToneGenerator
+let testToneGenerator sampleRate = OscillatorToneGenerator (sampleRate, getSawWave) :> ToneGenerator
 
 /// Creates a playing state for a chain at a given time
 let rec playChain (sampleRate : float) (time : Time) (chain : Chain) =
